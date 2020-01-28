@@ -1,11 +1,9 @@
+import items from '../data/items'
 import Houses from '../data/Houses'
-import User from '../data/User'
-import token from '../data/token'
-import status from '../data/status'
+import HouseDetail from '../data/HouseDetail'
 
 export default {
+  items,
   Houses,
-  User,
-  token,
-  status
+  HouseDetail
 }
