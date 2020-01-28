@@ -1,3 +1,11 @@
+VUEJS / VUEX / VUETIFY / AXIOS / HTML / CSS
+
+
+WEB API CORE 3.0 / C# / EF CODEFIRST / LINQ / SQL 2017 
+
+
+
+
 # vuex2
 
 ## Project setup
