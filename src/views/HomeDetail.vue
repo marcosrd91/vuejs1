@@ -33,7 +33,7 @@
                     <div class="text--primary">
                        <p> precio por noche  $ {{ houses.price }}</p>
                     </div>
-                    <v-rating v-model="rating"></v-rating>
+                    <v-rating></v-rating>
                   </v-card-text>
                   <v-card-actions>
                     <v-btn
