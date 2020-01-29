@@ -36,11 +36,13 @@ export default {
     return {
       Isvisible: false,
       House: {
+        User: '',
         Name: '',
         Description: '',
-        Img: []
+        Img: [],
+        allfiles: []
       },
-      allfiles: [],
+      //   allfiles: [],
       urls: []
     }
   },
@@ -58,12 +60,25 @@ export default {
       e = event.currentTarget.files
       // get the files
       let files = e
+
       // console.log(files)
       // Process each file
       // var allFiles = []
       if (files !== undefined) {
         for (var i = 0; i < files.length; i++) {
           let file = files[i]
+
+          if (!file) {
+            // e.preventDefault()
+            alert('No file chosen')
+            return
+          }
+
+          if (file.size > 1024 * 1024) {
+            // e.preventDefault()
+            alert('File too big (> 1MB)')
+            return
+          }
           // Make new FileReader
           let reader = new FileReader()
           // Convert the file to base64 text
@@ -81,10 +96,10 @@ export default {
               fileUrl: urlimage
             }
             // Push it to the state
-            this.House.Img.push(fileInfo.base64)
-            this.allfiles.push(fileInfo)
+            // this.House.Img.push(fileInfo.base64)
+            this.House.allfiles.push(fileInfo)
             this.urls.push(urlimage)
-
+            console.log(this.House.allfiles)
           // // If all files have been proceed
           // if (allFiles.length === files.length) {
           //   // Apply Callback function
@@ -97,23 +112,25 @@ export default {
     }, // onChange()
     remove (img) {
       let imgToRemove = event.currentTarget.src
-      for (var i = 0; i < this.allfiles.length; i++) {
-        if (this.allfiles[i].fileUrl === imgToRemove) {
-          this.allfiles.splice(i, 1)
+      for (var i = 0; i < this.House.allfiles.length; i++) {
+        if (this.House.allfiles[i].fileUrl === imgToRemove) {
+          this.House.allfiles.splice(i, 1)
         }
       }
-
+      console.log(this.House.allfiles)
       event.currentTarget.remove()
     },
     sendform () {
       var data = new FormData()
+      data.append('User', this.UserData)
       data.append('Name', this.House.Name)
       data.append('Description', this.House.Description)
-      for (var i = 0; i < this.House.Img.length; i++) {
-        data.append('Img', this.House.Img[i])
+      for (var i = 0; i < this.House.allfiles.length; i++) {
+        data.append('ImgUrl', this.House.allfiles[i].base64)
       }
       // console.log(data)
       this.CreateHouse(data)
+      data = null
     }
   }
 }
